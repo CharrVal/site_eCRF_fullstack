@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: crf_db
+    environment:
+      POSTGRES_DB: crf
+      POSTGRES_USER: crf_user
+      POSTGRES_PASSWORD: crf_pass
+      TZ: Europe/Paris
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./site_eCRF
+    container_name: site_eCRF_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      TZ: Europe/Paris
+      DB_URL: ${DB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+
+volumes:
+  postgres_data:

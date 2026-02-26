@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #538dcf">
+  <div class="container-fluid">
+
+    <a class="navbar-brand fw-semibold d-flex align-items-center" routerLink="/accueil">
+      Case Report Form
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        @for (link of [{ label: 'Accueil', route: '/accueil' }]; track link.route) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
+          </li>
+        }
+        @for (link of [{ label: 'Liste des études', route: '/studies' }]; track link.route) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
+          </li>
+        }
+        @for (link of [{ label: 'Connexion', route: '/connexion' }]; track link.route) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
+          </li>
+        }
+      </ul>
+
+    </div>
+
+  </div>
+  
+</nav>
