@@ -1,1 +1,22 @@
-<p>study-list works!</p>
+<div class="container">
+    <h5>Voici les études :</h5>
+    @if(studies.length != 0) {
+        @for(study of studies; track study) {
+            <div class="">
+                <p class="">study.name</p>
+                <p class="">study.description</p>
+                
+                @for(patient of study.patients; track patient) {
+                <ul class="">
+                    <li class="">study.patients</li>
+                </ul>
+                }
+            </div>
+        }
+    } 
+    <div>
+        <p>Aucune études à charger</p>
+    </div>
+    <button class="btn btn-prilmary" routerLink="/createStudy">Ajouter une étude</button>
+    <button class="btn btn-prilmary" routerLink="/accueil">Retour</button>
+</div>

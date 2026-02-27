@@ -1,1 +1,23 @@
-<p>create-study works!</p>
+<h5>Créer une nouvelle étude</h5>
+
+<div class="container">
+    <form [formGroup]="createStudyForm" (ngSubmit)="createStudy()">
+        <div class="">
+            <label class="" for="name">Nom de l'étude</label>
+            <input class="" type="text" id="name" name="name" formControlName="name">
+        </div>
+
+        <div>
+            <label class="" for="description">Description de l'étude</label>
+            <textarea class="" id="description" name="description" placeholder="Saisissez votre description" formControlName="description"></textarea>
+        </div>
+
+        <div>
+            <label class="" for="patients">Patient associés à cette étude</label>
+            <input type="option" id="patients" name="patients" placeholder="sélectionnez les patients à associer avec cette étude" formControlName="patients"> 
+        </div>
+        <div>
+            <button class="btn btn-primay" type="submit">Créer</button>
+        </div>
+    </form>
+</div>

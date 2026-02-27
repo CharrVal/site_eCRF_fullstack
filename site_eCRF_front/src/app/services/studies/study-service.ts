@@ -20,7 +20,7 @@ export class StudyService {
     return this.http.get<Study>(`${this.apiUrl}/${id}`);
   }
 
-  create(formData: FormData) {
+  create(formData: Study) {
     return this.http.post<Study>(this.apiUrl, formData);
   }
 
