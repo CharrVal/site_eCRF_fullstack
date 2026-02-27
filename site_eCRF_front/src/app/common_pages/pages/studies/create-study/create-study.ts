@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { Study } from '../../../../interfaces/studies/study';
 import { HttpClient } from '@angular/common/http';
 import { StudyService } from '../../../../services/studies/study-service';
+import { StudyRequest } from '../../../../interfaces/studies/study-request';
 
 @Component({
   selector: 'app-create-study',
@@ -18,9 +19,9 @@ export class CreateStudy {
   successMessage : string = '';
   errorMessage : string = '';
 
-  constructor (private fb:FormBuilder,
+  constructor (
+    private fb:FormBuilder,
     private studyService: StudyService,
-    private http: HttpClient,
     private cdr: ChangeDetectorRef) {
     this.createStudyForm = this.fb.group({
       name: ['',Validators.required],
@@ -36,8 +37,7 @@ export class CreateStudy {
 
     const formValue = this.createStudyForm.value;
 
-    const study : Study = {
-      id: 1,
+    const study : StudyRequest = {
       name : formValue.name,
       description : formValue.description,
       patients : formValue.patients
@@ -48,7 +48,6 @@ export class CreateStudy {
     this.studyService.create(study).subscribe({
       next: res => {
       console.log("Passage dans Service CREATE:");
-      console.log("Id :" + study.id);
       console.log("Name :" + study.name);
       console.log("Description :" + study.description);
       console.log("liste des patients :" + study.patients);

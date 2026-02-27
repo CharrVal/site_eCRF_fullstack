@@ -1,9 +1,12 @@
 package com.example.crf.dto;
 
-import com.example.crf.entity.Patient;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class StudyRequestDTO {
     private String name;
 

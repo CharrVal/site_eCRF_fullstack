@@ -1,12 +1,12 @@
 package com.example.crf.dto;
 
-import com.example.crf.entity.VitalSign;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class VisitResponseDTO {
     private Long id;
 

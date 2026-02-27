@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Study } from '../../interfaces/studies/study';
+import { StudyRequest } from '../../interfaces/studies/study-request';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,8 @@ export class StudyService {
     return this.http.get<Study>(`${this.apiUrl}/${id}`);
   }
 
-  create(formData: Study) {
-    return this.http.post<Study>(this.apiUrl, formData);
+  create(study: StudyRequest) {
+    return this.http.post<Study>(this.apiUrl, study);
   }
 
   update(id: number, formData: FormData) {

@@ -1,5 +1,6 @@
 package com.example.crf.entity;
 
+import com.example.crf.dto.PatientResponseDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,4 +25,5 @@ public class Study {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Patient> patients;
+
 }

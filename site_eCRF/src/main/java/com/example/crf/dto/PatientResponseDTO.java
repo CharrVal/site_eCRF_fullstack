@@ -12,5 +12,5 @@ public class PatientResponseDTO {
 
     private Integer subjectNumber;
 
-    private List<Long> visitIds;
+    private List<VisitResponseDTO> visitIds;
 }

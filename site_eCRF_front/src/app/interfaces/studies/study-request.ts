@@ -1,7 +1,6 @@
 import { Patient } from "../patients/patient";
 
-export interface Study {
-    id: number;
+export interface StudyRequest {
     name: string;
     description: string;
     patients?: Patient[];

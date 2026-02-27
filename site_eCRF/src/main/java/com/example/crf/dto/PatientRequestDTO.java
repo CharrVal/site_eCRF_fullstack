@@ -1,6 +1,5 @@
 package com.example.crf.dto;
 
-import com.example.crf.entity.Visit;
 import lombok.Getter;
 import lombok.Setter;
 
