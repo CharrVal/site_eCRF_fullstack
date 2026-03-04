@@ -33,13 +33,14 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient(Long id, Patient patientExisting) {
+    public Patient updatePatient(Long id, Patient input) {
         Patient patient = repository.findById(id)
-                .orElseThrow(() -> new PatientServiceException("Patient not Found with id : " + id));
-        patient.setVisits(patientExisting.getVisits());
-        patient.setSubjectNumber(patientExisting.getSubjectNumber());
-        return repository.save(patient);
+                .orElseThrow(() -> new PatientServiceException("Patient not found with id: " + id));
+
+        patient.setSubjectNumber(input.getSubjectNumber());
+        return patient;
     }
+
 
     @Override
     public void deletePatient(Long id) {

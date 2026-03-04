@@ -1,29 +1,30 @@
 package com.example.crf.entity;
 
-import com.example.crf.dto.PatientResponseDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
-@AllArgsConstructor
+@Table(name = "studies")
+@Getter
+@Setter
 @NoArgsConstructor
-@Table(name="studies")
+@AllArgsConstructor
 public class Study {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Patient> patients;
-
+    @OneToMany(
+            mappedBy = "study",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Patient> patients = new ArrayList<>();
 }

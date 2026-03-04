@@ -1,17 +1,18 @@
 package com.example.crf.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
 @Entity
-@AllArgsConstructor
+@Table(name = "visits")
+@Getter
+@Setter
 @NoArgsConstructor
-@Table(name="visits")
+@AllArgsConstructor
 public class Visit {
 
     @Id
@@ -19,8 +20,16 @@ public class Visit {
     private Long id;
 
     private String name;
-    private LocalDate date;
+    private LocalDate visitDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private VitalSign vitalSign;
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
+
+    @OneToMany(
+            mappedBy = "visit",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<VitalSign> vitalSigns = new ArrayList<>();
 }

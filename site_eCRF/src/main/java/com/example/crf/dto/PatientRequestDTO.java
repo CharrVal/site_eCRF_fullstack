@@ -10,6 +10,4 @@ import java.util.List;
 public class PatientRequestDTO {
 
     private Integer subjectNumber;
-
-    private List<VisitResponseDTO> visitIds;
 }

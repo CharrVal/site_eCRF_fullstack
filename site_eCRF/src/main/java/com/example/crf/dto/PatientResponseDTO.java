@@ -8,9 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PatientResponseDTO {
+
     private Long id;
-
     private Integer subjectNumber;
-
-    private List<VisitResponseDTO> visitIds;
 }

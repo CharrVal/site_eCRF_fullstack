@@ -8,9 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class StudyRequestDTO {
+
     private String name;
-
     private String description;
-
-    private List<PatientResponseDTO> patients;
 }

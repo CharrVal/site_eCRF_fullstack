@@ -1,17 +1,17 @@
 package com.example.crf.dto;
 
+import com.example.crf.entity.VitalSignType;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class VitalSignRequestDTO {
-    private String name;
-    private String description;
-    private Double temperature;
-    private Integer pulse;
-    private Integer systolicPressure;
-    private Integer diastolicPressure;
-    private Double weight;
-    private Double height;
+
+    private VitalSignType type;
+    private Double value;
+    private String unit;
+    private LocalDateTime measuredAt;
 }

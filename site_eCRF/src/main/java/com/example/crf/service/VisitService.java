@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface VisitService {
     Visit findById(Long id);
-    List<Visit> findAllL();
-    Visit createVisit(Visit visit);
-    Visit updateVisit(Long id, Visit visit);
-    void deleteVisit(Long id);
+    List<Visit> findVisitsByPatient(Long patientId);
+    Visit createVisitForPatient(Long patientId, Visit visit);
 }

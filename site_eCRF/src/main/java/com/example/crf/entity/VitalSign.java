@@ -1,26 +1,31 @@
 package com.example.crf.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.time.LocalDateTime;
+
 @Entity
-@AllArgsConstructor
+@Table(name = "vital_signs")
+@Getter
+@Setter
 @NoArgsConstructor
-@Table(name="vital_signs")
+@AllArgsConstructor
 public class VitalSign {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String description;
-    private Double temperature;
-    private Integer pulse;
-    private Integer systolicPressure;
-    private Integer diastolicPressure;
-    private Double weight;
-    private Double height;
+    @Enumerated(EnumType.STRING)
+    private VitalSignType type;
+
+    private Double value;
+    private String unit;
+
+    private LocalDateTime measuredAt;
+
+    @ManyToOne
+    @JoinColumn(name = "visit_id", nullable = false)
+    private Visit visit;
 }

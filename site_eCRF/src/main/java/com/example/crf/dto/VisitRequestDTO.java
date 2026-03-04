@@ -10,7 +10,5 @@ import java.time.LocalDate;
 public class VisitRequestDTO {
 
     private String name;
-    private LocalDate date;
-
-    private VitalSignResponseDTO vitalSign;
+    private LocalDate visitDate;
 }
