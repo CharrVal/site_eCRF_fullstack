@@ -24,6 +24,21 @@
             <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
           </li>
         }
+        @for (link of [{ label: 'Liste des patients pour une étude', route: '/studies/:studyId/patients' }]; track link.route) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
+          </li>
+        }
+        @for (link of [{ label: "Liste des visites d'un patient", route: '/patients/:patientId/visits' }]; track link.route) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
+          </li>
+        }
+        @for (link of [{ label: "Liste des signes vitaux d'une visite", route: '/visits/:visitId/vital-signs' }]; track link.route) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
+          </li>
+        }
         @for (link of [{ label: 'Connexion', route: '/connexion' }]; track link.route) {
           <li class="nav-item">
             <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>

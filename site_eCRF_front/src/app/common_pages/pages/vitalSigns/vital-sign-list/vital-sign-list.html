@@ -1,0 +1,21 @@
+<div class="container">
+    <h5>Voici les signes vitaux du patient :</h5>
+
+    @if (vitalSigns && vitalSigns.length > 0) {
+        @for (vitalSign of vitalSigns; track vitalSign) {
+            <div class="study-card mb-3 p-2 border rounded">
+                <p><strong>{{vitalSign.type }}</strong></p>
+                <p><strong>{{vitalSign.value }}</strong></p>
+                <p><strong>{{vitalSign.unit }}</strong></p>
+                <p><strong>{{vitalSign.measuredAt }}</strong></p>
+            </div>
+        }
+    }
+    <div>
+        <p>Aucun signe vitaux à charger</p>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-secondary" routerLink="/accueil">Retour</button>
+    </div>
+</div>

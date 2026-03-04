@@ -1,0 +1,19 @@
+<div class="container">
+    <h5>Voici les patients de l'étude :</h5>
+
+    @if (patients && patients.length > 0) {
+        @for (patient of patients; track patient) {
+            <div class="study-card mb-3 p-2 border rounded">
+                <p><strong>{{ patient.subjectNumber }}</strong></p>
+            </div>
+        }
+    }
+    <div>
+        <p>Aucun patient à charger</p>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-primary me-2" routerLink="/createPatient/:studyId">Ajouter un patient</button>
+        <button class="btn btn-secondary" routerLink="/accueil">Retour</button>
+    </div>
+</div>

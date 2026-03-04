@@ -1,0 +1,19 @@
+<div class="container">
+    <h5>Voici les visites de l'étude :</h5>
+
+    @if (visits && visits.length > 0) {
+        @for (visit of visits; track visit) {
+            <div class="study-card mb-3 p-2 border rounded">
+                <p><strong>{{visit.name }}</strong></p>
+                <p><strong>{{visit.visitDate }}</strong></p>
+            </div>
+        }
+    }
+    <div>
+        <p>Aucune visite à charger</p>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-secondary" routerLink="/accueil">Retour</button>
+    </div>
+</div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Study } from '../../interfaces/studies/study';
 import { StudyRequest } from '../../interfaces/studies/study-request';
+import { Patient } from '../../interfaces/patients/patient';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class StudyService {
 
   constructor ( private http: HttpClient){}
 
-  getStudy(): Observable<Study[]> {
+  getAll(): Observable<Study[]> {
     return this.http.get<Study[]>(this.apiUrl);
   }
 
@@ -21,16 +22,8 @@ export class StudyService {
     return this.http.get<Study>(`${this.apiUrl}/${id}`);
   }
 
-  create(study: StudyRequest) {
-    return this.http.post<Study>(this.apiUrl, study);
-  }
-
-  update(id: number, formData: FormData) {
-    return this.http.put<Study>(`${this.apiUrl}/${id}`, formData)
-  }
-
-  delete(id:number) {
-    return this.http.delete<Study>(`${this.apiUrl}/${id}`)
+  getPatientsByStudy(studyId: number): Observable<Patient[]> {
+    return this.http.get<Patient[]>(`http://localhost:8080/studies/${studyId}/patients`);
   }
 
 }

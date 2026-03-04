@@ -31,36 +31,6 @@ export class CreateStudy {
   }
 
   createStudy() {
-    if(this.createStudyForm.invalid){
-      return console.log("formulaire non valide");
-    }
-
-    const formValue = this.createStudyForm.value;
-
-    const study : StudyRequest = {
-      name : formValue.name,
-      description : formValue.description,
-      patients : formValue.patients
-    }
-    console.log("Objet récupéré du formulaire");
-    console.log("Study : " + study);
-
-    this.studyService.create(study).subscribe({
-      next: res => {
-      console.log("Passage dans Service CREATE:");
-      console.log("Name :" + study.name);
-      console.log("Description :" + study.description);
-      console.log("liste des patients :" + study.patients);
-      this.successMessage = `Etude "${res.name}" créée avec succès !`;
-      this.errorMessage = '';
-      this.createStudyForm.reset();
-      this.cdr.markForCheck();
-      },
-      error: err => {
-        console.error(err);
-        this.successMessage = ``;
-        this.errorMessage = "Problème lors de la création de l'étude";
-      }
-    });
+    return "not implemented"
   }
 }
