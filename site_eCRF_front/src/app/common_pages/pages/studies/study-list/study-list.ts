@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Study } from '../../../../interfaces/studies/study';
 import { StudyService } from '../../../../services/studies/study-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-study-list',
@@ -13,7 +14,7 @@ export class StudyList implements OnInit {
   studies: Study[] = [];
   errorMessage: string | null = "";
 
-  constructor(private studyService: StudyService, private cdr: ChangeDetectorRef) {}
+  constructor(private studyService: StudyService, private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit(): void {
     this.loadStudies();
@@ -32,4 +33,14 @@ export class StudyList implements OnInit {
       }
     });
   }
+
+  deleteStudy(id: number): void {
+    if (confirm('Voulez-vous vraiment supprimer cette étude ?')) {
+      this.studyService.deleteStudy(id).subscribe({
+        next: () => this.loadStudies(),
+        error: err => console.error(err)
+      });
+    }
+  }
+
 }

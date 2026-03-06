@@ -11,25 +11,33 @@ import { VisitService } from '../../../../services/visits/visit-service';
 export class VisitList implements OnInit {
 
   visits: Visit[] = [];
-  errorMessage: string | null = "";
+  errorMessage: string | null = null;
 
-  constructor(private visitService: VisitService, private cdr: ChangeDetectorRef){}
-  
+  constructor(private visitService: VisitService, private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.loadVisits();
   }
 
-  loadVisits() {
-    this.visitService.getVisit().subscribe({
-      next: (data) => {
+  loadVisits(): void {
+    this.visitService.getAll().subscribe({
+      next: data => {
         this.visits = data;
         this.cdr.markForCheck();
       },
-      error: (err) => {
+      error: err => {
         this.errorMessage = 'Erreur lors du chargement des visites';
         console.error(err);
-        this.cdr.markForCheck();
       }
     });
+  }
+
+  deleteVisit(id: number): void {
+    if (confirm('Voulez-vous vraiment supprimer cette visite ?')) {
+      this.visitService.delete(id).subscribe({
+        next: () => this.loadVisits(),
+        error: err => console.error(err)
+      });
+    }
   }
 }

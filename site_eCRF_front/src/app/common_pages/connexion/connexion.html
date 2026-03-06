@@ -1,22 +1,39 @@
-<h5>Connexion</h5>
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+    <h3 class="mb-4 text-center">Connexion</h3>
+    <div class="card shadow-lg p-4 p-md-5" style="max-width: 400px; width: 100%;">
+        <form [formGroup]="connexionForm" (ngSubmit)="connecter()">
+            <div class="mb-3">
+                <label for="username" class="form-label">username</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="username" 
+                    placeholder="Entrez votre login" 
+                    formControlName="username">
+            </div>
 
-<form [formGroup]="connexionForm" (ngSubmit)="connecter()">
-    <div>
-        <label for="identifiant">Identifiant</label>
-        <input type="text" name="identifiant" id="identifiant" placeholder="Entrez votre login" formControlName="identifiant">
-    </div>
-    <div>
-        <label>Mot de passe</label>
-        <input type="password" name="password" id="password" placeholder="Entrez votre mot de passe" formControlName="password">
-    </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="password" 
+                    placeholder="Entrez votre mot de passe" 
+                    formControlName="password">
+            </div>
 
-    @if(errorMessage){
-    <div class="alert alert-danger text-center">
-        {{ errorMessage }}
-      </div>
-    }
-    
-      <div class="d-grid">
-        <button type="submit" class="btn btn-primary btn-lg" [disabled]="connexionForm.invalid">Se connecter</button>
-      </div>
-</form>
+            <div *ngIf="errorMessage" class="alert alert-danger text-center">
+                {{ errorMessage }}
+            </div>
+
+            <div class="d-grid mt-3">
+                <button 
+                    type="submit" 
+                    class="btn btn-primary btn-lg" 
+                    [disabled]="connexionForm.invalid">
+                    Se connecter
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

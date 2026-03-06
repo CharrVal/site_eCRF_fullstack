@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Patient } from '../../../../interfaces/patients/patient';
 import { ActivatedRoute } from '@angular/router';
 import { StudyService } from '../../../../services/studies/study-service';
+import { PatientService } from '../../../../services/patients/patient-service';
 
 @Component({
   selector: 'app-patient-list',
@@ -9,30 +10,36 @@ import { StudyService } from '../../../../services/studies/study-service';
   templateUrl: './patient-list.html',
   styleUrl: './patient-list.css',
 })
-export class PatientList {
-  patients: Patient[] = [];
-  errorMessage: string | null = "";
+export class PatientList implements OnInit {
 
-  constructor(private studyService: StudyService, private cdr: ChangeDetectorRef, private route: ActivatedRoute,) {}
+  patients: Patient[] = [];
+  errorMessage: string | null = null;
+
+  constructor(private patientService: PatientService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    const studyId = this.route.snapshot.paramMap.get('studyId');
-    if (studyId) {
-    this.loadPatients(Number(studyId));
-    }
+    this.loadPatients();
   }
 
-  loadPatients(studyId: number): void {
-    this.studyService.getPatientsByStudy(studyId).subscribe({
-    next: (data) => {
-      this.patients = data;
-      this.cdr.markForCheck();
+  loadPatients(): void {
+    this.patientService.getAll().subscribe({
+      next: data => {
+        this.patients = data;
+        this.cdr.markForCheck();
       },
-    error: (err) => {
-      this.errorMessage = 'Erreur lors du chargement des patients';
-      console.error(err);
-      this.cdr.markForCheck();
+      error: err => {
+        this.errorMessage = 'Erreur lors du chargement des patients';
+        console.error(err);
       }
     });
+  }
+
+  deletePatient(id: number): void {
+    if (confirm('Voulez-vous vraiment supprimer ce patient ?')) {
+      this.patientService.delete(id).subscribe({
+        next: () => this.loadPatients(),
+        error: err => console.error(err)
+      });
+    }
   }
 }

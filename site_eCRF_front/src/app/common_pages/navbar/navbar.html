@@ -19,22 +19,7 @@
             <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
           </li>
         }
-        @for (link of [{ label: 'Liste des études', route: '/studies' }]; track link.route) {
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
-          </li>
-        }
-        @for (link of [{ label: 'Liste des patients pour une étude', route: '/studies/:studyId/patients' }]; track link.route) {
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
-          </li>
-        }
-        @for (link of [{ label: "Liste des visites d'un patient", route: '/patients/:patientId/visits' }]; track link.route) {
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
-          </li>
-        }
-        @for (link of [{ label: "Liste des signes vitaux d'une visite", route: '/visits/:visitId/vital-signs' }]; track link.route) {
+        @for (link of [{ label: 'Panneau de controle', route: '/control-panel' }]; track link.route) {
           <li class="nav-item">
             <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
           </li>
@@ -44,6 +29,24 @@
             <a class="nav-link" [routerLink]="link.route">{{ link.label }}</a>
           </li>
         }
+
+      <ul class="navbar-nav ms-lg-3">
+        @if (userLoggedService.isLoggedIn) {
+          <li class="nav-item d-flex align-items-center">
+            <span class="text-white fw-semibold me-2">
+              Bonjour {{ userLoggedService.user?.username }}
+            </span>
+            <button class="btn btn-outline-light btn-sm" (click)="logout()">Déconnexion</button>
+          </li>
+        }
+        @if (!userLoggedService.isLoggedIn) {
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="/connexion">
+              <i class="bi bi-box-arrow-in-right fs-4 text-white"></i>
+            </a>
+          </li>
+        }
+      </ul>
       </ul>
 
     </div>

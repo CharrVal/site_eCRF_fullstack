@@ -2,15 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Study } from '../../interfaces/studies/study';
-import { StudyRequest } from '../../interfaces/studies/study-request';
-import { Patient } from '../../interfaces/patients/patient';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudyService {
 
-  private apiUrl = "https://localhost:8080/studies"
+  private apiUrl = "http://localhost:8080/studies"
 
   constructor ( private http: HttpClient){}
 
@@ -22,8 +20,15 @@ export class StudyService {
     return this.http.get<Study>(`${this.apiUrl}/${id}`);
   }
 
-  getPatientsByStudy(studyId: number): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`http://localhost:8080/studies/${studyId}/patients`);
+  createStudy(study: Study): Observable<Study> {
+    return this.http.post<Study>(this.apiUrl, study);
   }
 
+  updateStudy(id: number, study: Study): Observable<Study> {
+    return this.http.put<Study>(`${this.apiUrl}/${id}`, study);
+  }
+
+  deleteStudy(id: number) : Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

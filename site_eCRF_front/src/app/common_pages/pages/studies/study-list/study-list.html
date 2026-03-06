@@ -1,20 +1,28 @@
 <div class="container">
-    <h5>Voici les études :</h5>
+  <h5>Voici les études disponibles dans l'eCRF:</h5>
 
-    @if (studies && studies.length > 0) {
-        @for (study of studies; track study) {
-            <div class="study-card mb-3 p-2 border rounded">
-                <p><strong>{{ study.name }}</strong></p>
-                <p>{{ study.description }}</p>
-            </div>
-        }
+  @if (studies && studies.length > 0) {
+    @for (study of studies; track study) {
+      <div class="study-card mb-3 p-2 border rounded">
+        <p><strong>{{ study.name }}</strong></p>
+        <p>{{ study.description }}</p>
+
+        <button class="btn btn-sm btn-primary me-2" routerLink="['/studies/update', study.id]">
+          Modifier
+        </button>
+        <button class="btn btn-sm btn-danger" (click)="deleteStudy(study.id)">
+          Supprimer
+        </button>
+      </div>
     }
-    <div>
-        <p>Aucune étude à charger</p>
-    </div>
+  }
 
-    <div class="mt-3">
-        <button class="btn btn-primary me-2" routerLink="/createStudy">Ajouter une étude</button>
-        <button class="btn btn-secondary" routerLink="/accueil">Retour</button>
-    </div>
+  @if(studies.length == 0) {
+    <p>Aucune étude à charger</p>
+  }
+
+  <div class="mt-3">
+    <button class="btn btn-success me-2" routerLink="['/studies/create']">Ajouter une étude</button>
+    <button class="btn btn-secondary" routerLink="['/accueil']">Retour</button>
+  </div>
 </div>

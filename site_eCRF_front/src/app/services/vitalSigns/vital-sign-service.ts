@@ -8,16 +8,20 @@ import { VitalSign } from '../../interfaces/vitalsign/vitalSign';
 })
 export class VitalSignService {
 
-  private apiUrl = "https://localhost:8080/vitalSigns"
+  private apiUrl = "http://localhost:8080/vitalSigns"
 
   constructor ( private http: HttpClient){}
 
-  getVisit(): Observable<VitalSign[]> {
+  getAll(): Observable<VitalSign[]> {
     return this.http.get<VitalSign[]>(this.apiUrl);
   }
 
   getById(id: number): Observable<VitalSign> {
     return this.http.get<VitalSign>(`${this.apiUrl}/${id}`);
+  }
+
+  getByVisitId(visitId: number): Observable<VitalSign[]> {
+    return this.http.get<VitalSign[]>(`${this.apiUrl}/visit/${visitId}`)
   }
 
   create(formData: FormData) {
@@ -28,8 +32,8 @@ export class VitalSignService {
     return this.http.put<VitalSign>(`${this.apiUrl}/${id}`, formData)
   }
 
-  delete(id:number) {
-    return this.http.delete<VitalSign>(`${this.apiUrl}/${id}`)
+  delete(id:number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
   }
 
 }

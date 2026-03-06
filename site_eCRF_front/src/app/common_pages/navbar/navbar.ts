@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { UserLoggedService } from '../../services/auth/user-logged-service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,5 +11,12 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class Navbar {
 
-  constructor( private router: Router ) {}
+  constructor( private router: Router, public userLoggedService: UserLoggedService) {}
+
+  logout() {
+    this.userLoggedService.logout();
+    sessionStorage.removeItem('Jwt'); 
+    sessionStorage.removeItem('user');
+    this.router.navigate(['/accueil']);
+  }
 }

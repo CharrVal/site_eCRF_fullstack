@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { Study } from '../../../../interfaces/studies/study';
 import { HttpClient } from '@angular/common/http';
 import { StudyService } from '../../../../services/studies/study-service';
-import { StudyRequest } from '../../../../interfaces/studies/study-request';
 
 @Component({
   selector: 'app-create-study',

@@ -8,16 +8,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class VisitService {
 
-  private apiUrl = "https://localhost:8080/visits"
+  private apiUrl = "http://localhost:8080/visits"
 
   constructor ( private http: HttpClient){}
 
-  getVisit(): Observable<Visit[]> {
+  getAll(): Observable<Visit[]> {
     return this.http.get<Visit[]>(this.apiUrl);
   }
 
   getById(id: number): Observable<Visit> {
     return this.http.get<Visit>(`${this.apiUrl}/${id}`);
+  }
+
+  getByPatientId(patientId: number): Observable<Visit[]> {
+    return this.http.get<Visit[]>(`${this.apiUrl}/patient/${patientId}`)
   }
 
   create(formData: FormData) {
@@ -28,8 +32,8 @@ export class VisitService {
     return this.http.put<Visit>(`${this.apiUrl}/${id}`, formData)
   }
 
-  delete(id:number) {
-    return this.http.delete<Visit>(`${this.apiUrl}/${id}`)
+  delete(id:number) : Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
   }
 
 }

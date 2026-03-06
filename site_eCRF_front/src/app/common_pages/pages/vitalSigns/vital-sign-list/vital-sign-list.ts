@@ -11,27 +11,33 @@ import { VitalSignService } from '../../../../services/vitalSigns/vital-sign-ser
 export class VitalSignList implements OnInit {
 
   vitalSigns: VitalSign[] = [];
-  errorMessage: string | null = "";
+  errorMessage: string | null = null;
 
-  constructor(private vitalSignService: VitalSignService, private cdr: ChangeDetectorRef){}
-  
+  constructor(private vitalSignService: VitalSignService, private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.loadVitalSigns();
   }
 
-  loadVitalSigns() {
-    this.vitalSignService.getVisit().subscribe({
-      next: (data) => {
+  loadVitalSigns(): void {
+    this.vitalSignService.getAll().subscribe({
+      next: data => {
         this.vitalSigns = data;
         this.cdr.markForCheck();
       },
-      error: (err) => {
+      error: err => {
         this.errorMessage = 'Erreur lors du chargement des signes vitaux';
         console.error(err);
-        this.cdr.markForCheck();
       }
     });
   }
 
-
+  deleteVitalSign(id: number): void {
+    if (confirm('Voulez-vous vraiment supprimer ce signe vital ?')) {
+      this.vitalSignService.delete(id).subscribe({
+        next: () => this.loadVitalSigns(),
+        error: err => console.error(err)
+      });
+    }
+  }
 }

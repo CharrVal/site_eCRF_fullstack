@@ -8,7 +8,7 @@ import { Patient } from '../../interfaces/patients/patient';
 })
 export class PatientService {
 
-  private apiUrl = "`http://localhost:8080/patients"
+  private apiUrl = "http://localhost:8080/patients"
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +18,10 @@ export class PatientService {
 
   getById(id: number): Observable<Patient> {
     return this.http.get<Patient>(`${this.apiUrl}/${id}`);
+  }
+
+  getByStudyId(studyId: number): Observable<Patient[]> {
+    return this.http.get<Patient[]>(`${this.apiUrl}/study/${studyId}`);
   }
 
   create(formData: FormData) {
