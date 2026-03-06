@@ -1,9 +1,13 @@
 package com.example.crf.service;
 
+import com.example.crf.dto.VisitRequestDTO;
+import com.example.crf.dto.VisitResponseDTO;
 import com.example.crf.entity.Patient;
 import com.example.crf.entity.Visit;
+import com.example.crf.mapper.VisitMapper;
 import com.example.crf.repositories.PatientRepository;
 import com.example.crf.repositories.VisitRepository;
+import com.example.crf.service.Exception.PatientServiceException;
 import com.example.crf.service.Exception.VisitServiceException;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,32 +15,90 @@ import java.util.List;
 @Service
 public class VisitServiceImpl implements VisitService {
 
-    private final VisitRepository visitRepository;
+    private final VisitRepository repository;
     private final PatientRepository patientRepository;
+    private final VisitMapper visitMapper;
 
     public VisitServiceImpl(
-                VisitRepository visitRepository,
-                PatientRepository patientRepository) {
-            this.visitRepository = visitRepository;
-            this.patientRepository = patientRepository;
-        }
-    @Override
-    public Visit createVisitForPatient(Long patientId, Visit visit) {
-        Patient patient = patientRepository.findById(patientId)
-                    .orElseThrow(() -> new VisitServiceException("Patient not found with id: " + patientId));
+            VisitRepository repository,
+            PatientRepository patientRepository,
+            VisitMapper visitMapper) {
+        this.repository = repository;
+        this.patientRepository = patientRepository;
+        this.visitMapper = visitMapper;
+    }
 
+    @Override
+    public VisitResponseDTO findById(Long id) {
+
+        Visit visit = repository.findById(id)
+                .orElseThrow(() -> new VisitServiceException("Visit not Found with Id:" + id));
+
+        return visitMapper.toResponseDTO(visit);
+    }
+
+    @Override
+    public List<VisitResponseDTO> findAll() {
+
+        List<Visit> visits = repository.findAll();
+
+        return visits.stream()
+                .map(visitMapper::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    public List<VisitResponseDTO> findByPatient(Long patientId) {
+
+        patientRepository.findById(patientId)
+                .orElseThrow(() -> new PatientServiceException("Patient not found with Id:" + patientId));
+
+        List<Visit> visits = repository.findByPatientId(patientId);
+
+        return visits.stream()
+                .map(visitMapper::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    public VisitResponseDTO createVisit(VisitRequestDTO dto) {
+
+        Patient patient = patientRepository.findById(dto.getPatientId())
+                .orElseThrow(() -> new PatientServiceException(
+                        "Patient not found with Id:" + dto.getPatientId()));
+
+        Visit visit = visitMapper.toEntity(dto, patient);
+
+        visit = repository.save(visit);
+
+        return visitMapper.toResponseDTO(visit);
+    }
+
+    @Override
+    public VisitResponseDTO updateVisit(Long id, VisitRequestDTO dto) {
+
+        Visit visit = repository.findById(id)
+                .orElseThrow(() -> new VisitServiceException("Visit not found with Id:" + id));
+
+        Patient patient = patientRepository.findById(dto.getPatientId())
+                .orElseThrow(() -> new PatientServiceException(
+                        "Patient not found with Id:" + dto.getPatientId()));
+
+        visit.setName(dto.getName());
+        visit.setVisitDate(dto.getVisitDate());
         visit.setPatient(patient);
-        return visitRepository.save(visit);
+
+        visit = repository.save(visit);
+
+        return visitMapper.toResponseDTO(visit);
     }
 
     @Override
-    public List<Visit> findVisitsByPatient(Long patientId) {
-        return visitRepository.findByPatientId(patientId);
-    }
+    public void deleteVisit(Long id) {
 
-    @Override
-    public Visit findById(Long id) {
-        return visitRepository.findById(id)
-                .orElseThrow(() -> new VisitServiceException("Visit not found with id: " + id));
+        Visit visit = repository.findById(id)
+                .orElseThrow(() -> new VisitServiceException("Visit not found with Id:" + id));
+
+        repository.delete(visit);
     }
 }

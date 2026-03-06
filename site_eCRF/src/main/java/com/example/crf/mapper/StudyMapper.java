@@ -10,19 +10,21 @@ import java.util.List;
 @Component
 public class StudyMapper {
 
-    public Study toEntity(StudyRequestDTO dto) {
-        Study study = new Study();
-        study.setName(dto.getName());
-        study.setDescription(dto.getDescription());
-        return study;
-    }
-
-    public StudyResponseDTO toResponse(Study study) {
+    public StudyResponseDTO toResponseDTO(Study study) {
         StudyResponseDTO dto = new StudyResponseDTO();
         dto.setId(study.getId());
         dto.setName(study.getName());
         dto.setDescription(study.getDescription());
+
         return dto;
+    }
+
+    public Study toEntity(StudyRequestDTO dto) {
+        Study study = new Study();
+        study.setName(dto.getName());
+        study.setDescription(dto.getDescription());
+
+        return study;
     }
 }
 

@@ -14,4 +14,5 @@ public class VitalSignRequestDTO {
     private Double value;
     private String unit;
     private LocalDateTime measuredAt;
+    private Long visitId;
 }

@@ -12,4 +12,6 @@ public class VisitResponseDTO {
     private Long id;
     private String name;
     private LocalDate visitDate;
+    private Long patientId;
+    private Integer subjectNumber;
 }

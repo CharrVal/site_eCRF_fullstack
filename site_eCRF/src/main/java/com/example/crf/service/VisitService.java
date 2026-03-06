@@ -1,11 +1,15 @@
 package com.example.crf.service;
 
-import com.example.crf.entity.Visit;
+import com.example.crf.dto.VisitRequestDTO;
+import com.example.crf.dto.VisitResponseDTO;
 
 import java.util.List;
 
 public interface VisitService {
-    Visit findById(Long id);
-    List<Visit> findVisitsByPatient(Long patientId);
-    Visit createVisitForPatient(Long patientId, Visit visit);
+    VisitResponseDTO findById(Long id);
+    List<VisitResponseDTO> findAll();
+    List<VisitResponseDTO> findByPatient(Long patientId);
+    VisitResponseDTO createVisit(VisitRequestDTO dto);
+    VisitResponseDTO updateVisit(Long id, VisitRequestDTO dto);
+    void deleteVisit(Long id);
 }

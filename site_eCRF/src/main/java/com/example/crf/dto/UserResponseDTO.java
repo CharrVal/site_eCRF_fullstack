@@ -7,10 +7,9 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PatientResponseDTO {
-
+public class UserResponseDTO {
     private Long id;
-    private Integer subjectNumber;
-    private Long studyId;
-    private String studyName;
+    private String username;
+    private String roleName;
+    private List<Long> studyIds;
 }

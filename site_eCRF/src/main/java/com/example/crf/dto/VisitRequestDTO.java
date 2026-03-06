@@ -11,4 +11,5 @@ public class VisitRequestDTO {
 
     private String name;
     private LocalDate visitDate;
+    private Long patientId;
 }
