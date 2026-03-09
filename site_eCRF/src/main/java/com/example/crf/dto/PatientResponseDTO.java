@@ -11,6 +11,6 @@ public class PatientResponseDTO {
 
     private Long id;
     private Integer subjectNumber;
-    private Long studyId;
-    private String studyName;
+    private Long siteId;
+    private List<Long> visitIds;
 }

@@ -11,9 +11,11 @@ public class VisitMapper {
 
     public VisitResponseDTO toResponseDTO(Visit visit) {
         VisitResponseDTO dto = new VisitResponseDTO();
+
         dto.setId(visit.getId());
         dto.setName(visit.getName());
         dto.setVisitDate(visit.getVisitDate());
+
         if (visit.getPatient() != null) {
             dto.setPatientId(visit.getPatient().getId());
             dto.setSubjectNumber(visit.getPatient().getSubjectNumber());
@@ -24,6 +26,7 @@ public class VisitMapper {
 
     public Visit toEntity(VisitRequestDTO dto, Patient patient) {
         Visit visit = new Visit();
+
         visit.setName(dto.getName());
         visit.setVisitDate(dto.getVisitDate());
         visit.setPatient(patient);

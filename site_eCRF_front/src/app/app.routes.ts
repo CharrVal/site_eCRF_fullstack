@@ -17,6 +17,9 @@ import { UpdateVitalSign } from './common_pages/pages/vitalSigns/update-vital-si
 import { PatientByStudy } from './common_pages/pages/patients/patient-by-study/patient-by-study';
 import { VisitByPatient } from './common_pages/pages/visits/visit-by-patient/visit-by-patient';
 import { VitalSignByVisit } from './common_pages/pages/vitalSigns/vital-sign-by-visit/vital-sign-by-visit';
+import { SiteList } from './common_pages/pages/sites/site-list/site-list';
+import { CreateSite } from './common_pages/pages/sites/create-site/create-site';
+import { UpdateSite } from './common_pages/pages/sites/update-site/update-site';
 
 export const routes: Routes = [
 
@@ -26,6 +29,9 @@ export const routes: Routes = [
     { path: 'studies', component: StudyList },
     { path: 'studies/create', component: CreateStudy },
     { path: 'studies/update/:id', component: UpdateStudy },
+    { path: 'sites', component: SiteList },
+    { path: 'sites/create', component: CreateSite },
+    { path: 'sites/update/:id', component: UpdateSite },
     { path: 'patients', component: PatientList },
     { path: 'patients/create', component: CreatePatient },
     { path: 'patients/update/:id', component: UpdatePatient },

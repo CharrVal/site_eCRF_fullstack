@@ -10,5 +10,6 @@ import java.util.List;
 public class PatientRequestDTO {
 
     private Integer subjectNumber;
-    private Long studyId;
+    private Long siteId;
+    private List<Long> visitIds;
 }

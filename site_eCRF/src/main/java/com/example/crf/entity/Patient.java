@@ -20,9 +20,9 @@ public class Patient {
 
     private Integer subjectNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "study_id", nullable = false)
-    private Study study;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "site_id")
+    private Site site;
 
     @OneToMany(
             mappedBy = "patient",

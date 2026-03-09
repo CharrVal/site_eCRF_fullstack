@@ -31,9 +31,9 @@ public class PatientController {
         return ResponseEntity.ok(patientService.findById(id));
     }
 
-    @GetMapping("/study/{studyId}")
-    public ResponseEntity<List<PatientResponseDTO>> findByStudy(@PathVariable Long studyId) {
-        return ResponseEntity.ok(patientService.findByStudy(studyId));
+    @GetMapping("/site/{siteId}")
+    public ResponseEntity<List<PatientResponseDTO>> findBySite(@PathVariable Long siteId) {
+        return ResponseEntity.ok(patientService.findBySiteId(siteId));
     }
 
     @PostMapping

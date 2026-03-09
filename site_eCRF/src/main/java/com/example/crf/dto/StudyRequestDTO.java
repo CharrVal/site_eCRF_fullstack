@@ -11,4 +11,6 @@ public class StudyRequestDTO {
 
     private String name;
     private String description;
+    private Long userId;
+    private List<Long> siteIds;
 }

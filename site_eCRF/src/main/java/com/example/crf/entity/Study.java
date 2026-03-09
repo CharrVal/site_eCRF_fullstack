@@ -34,5 +34,5 @@ public class Study {
             orphanRemoval = true
     )
     @JsonIgnore
-    private List<Patient> patients = new ArrayList<>();
+    private List<Site> sites = new ArrayList<>();
 }

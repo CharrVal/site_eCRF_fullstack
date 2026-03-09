@@ -63,7 +63,9 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public void deleteStudy(Long id) {
+        Study study = repository.findById(id)
+                .orElseThrow(() -> new StudyServiceException("Study not found with id:" + id));
 
-        repository.deleteById(id);
+        repository.delete(study);
     }
 }
