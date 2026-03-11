@@ -20,12 +20,13 @@ public class Patient {
 
     private Integer subjectNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "site_id")
     private Site site;
 
     @OneToMany(
             mappedBy = "patient",
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )

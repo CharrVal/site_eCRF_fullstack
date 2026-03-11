@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Patient } from '../../../../interfaces/patients/patient';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { StudyService } from '../../../../services/studies/study-service';
 import { PatientService } from '../../../../services/patients/patient-service';
 
 @Component({
   selector: 'app-patient-list',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './patient-list.html',
   styleUrl: './patient-list.css',
 })

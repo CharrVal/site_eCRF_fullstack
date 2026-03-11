@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { RouterModule } from '@angular/router';
-import { Study } from '../../../../interfaces/studies/study';
-import { HttpClient } from '@angular/common/http';
 import { StudyService } from '../../../../services/studies/study-service';
+import { PatientService } from '../../../../services/patients/patient-service';
+import { Patient } from '../../../../interfaces/patients/patient';
 
 @Component({
   selector: 'app-create-study',
@@ -12,24 +12,57 @@ import { StudyService } from '../../../../services/studies/study-service';
   templateUrl: './create-study.html',
   styleUrl: './create-study.css',
 })
-export class CreateStudy {
+export class CreateStudy implements OnInit {
 
   createStudyForm: FormGroup;
-  successMessage : string = '';
-  errorMessage : string = '';
+  patients: Patient[] = [];
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  constructor (
-    private fb:FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private studyService: StudyService,
-    private cdr: ChangeDetectorRef) {
+    private patientService: PatientService
+  ) {
+
     this.createStudyForm = this.fb.group({
-      name: ['',Validators.required],
+      name: ['', Validators.required],
       description: ['', Validators.required],
       patients: []
     });
   }
 
-  createStudy() {
-    return "not implemented"
+  ngOnInit(): void {
+    this.loadPatients();
+  }
+
+  loadPatients(): void {
+    this.patientService.getAll().subscribe({
+      next: patients => this.patients = patients,
+      error: err => console.error('Erreur chargement patients', err)
+    });
+  }
+
+  createStudy(): void {
+
+    if (this.createStudyForm.invalid) {
+      this.errorMessage = 'Formulaire invalide';
+      return;
+    }
+
+    const studyRequest = this.createStudyForm.value;
+
+    this.studyService.createStudy(studyRequest).subscribe({
+      next: res => {
+        this.successMessage = `Study "${res.name}" créée avec succès !`;
+        this.errorMessage = '';
+        this.createStudyForm.reset();
+      },
+      error: err => {
+        console.error(err);
+        this.errorMessage = "Erreur lors de la création de l'étude";
+        this.successMessage = '';
+      }
+    });
   }
 }

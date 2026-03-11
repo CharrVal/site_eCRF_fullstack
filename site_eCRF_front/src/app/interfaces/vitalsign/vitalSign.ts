@@ -1,3 +1,4 @@
+import { Visit } from "../visits/visit";
 import { VitalSignType } from "../vitalSignType/vitalSigntype";
 
 export interface VitalSign {
@@ -6,5 +7,5 @@ export interface VitalSign {
   value: number;
   unit: string;
   measuredAt: string;   // ISO string renvoyée par Spring
-  visitId?: number; 
+  visits?: Visit[]; 
 }

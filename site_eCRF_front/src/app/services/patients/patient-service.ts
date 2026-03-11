@@ -20,8 +20,8 @@ export class PatientService {
     return this.http.get<Patient>(`${this.apiUrl}/${id}`);
   }
 
-  getByStudyId(studyId: number): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`${this.apiUrl}/study/${studyId}`);
+  getBySiteId(siteId: number): Observable<Patient[]> {
+    return this.http.get<Patient[]>(`${this.apiUrl}/site/${siteId}`);
   }
 
   create(formData: FormData) {

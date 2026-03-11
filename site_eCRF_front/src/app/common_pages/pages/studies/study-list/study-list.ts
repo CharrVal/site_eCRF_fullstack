@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Study } from '../../../../interfaces/studies/study';
 import { StudyService } from '../../../../services/studies/study-service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-study-list',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './study-list.html',
   styleUrl: './study-list.css',
 })

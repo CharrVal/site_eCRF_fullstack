@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { VitalSign } from '../../../../interfaces/vitalsign/vitalSign';
 import { VitalSignService } from '../../../../services/vitalSigns/vital-sign-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-vital-sign-list',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './vital-sign-list.html',
   styleUrl: './vital-sign-list.css',
 })

@@ -31,6 +31,7 @@ public class Site {
 
     @OneToMany(
             mappedBy = "site",
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )

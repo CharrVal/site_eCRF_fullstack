@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Visit } from '../../../../interfaces/visits/visit';
 import { VisitService } from '../../../../services/visits/visit-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-visit-list',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './visit-list.html',
   styleUrl: './visit-list.css',
 })

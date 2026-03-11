@@ -24,6 +24,10 @@ export class VisitService {
     return this.http.get<Visit[]>(`${this.apiUrl}/patient/${patientId}`)
   }
 
+  getByStudyId(studyId: number): Observable<Visit[]> {
+    return this.http.get<Visit[]>(`${this.apiUrl}/patient/${studyId}`)
+  }
+
   create(formData: FormData) {
     return this.http.post<Visit>(this.apiUrl, formData);
   }

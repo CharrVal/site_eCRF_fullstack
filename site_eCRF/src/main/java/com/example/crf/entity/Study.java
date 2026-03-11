@@ -30,6 +30,7 @@ public class Study {
 
     @OneToMany(
             mappedBy = "study",
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )

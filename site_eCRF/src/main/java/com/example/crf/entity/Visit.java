@@ -26,6 +26,10 @@ public class Visit {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
+    @ManyToOne
+    @JoinColumn(name = "study_id", nullable = false)
+    private Study study;
+
     @OneToMany(
             mappedBy = "visit",
             cascade = CascadeType.ALL,

@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Site } from '../../../../interfaces/sites/site';
 import { SiteService } from '../../../../services/sites/site-service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-site-list',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './site-list.html',
   styleUrl: './site-list.css',
 })

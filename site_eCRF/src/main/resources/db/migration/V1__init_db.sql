@@ -45,8 +45,10 @@ CREATE TABLE visits (
                         name VARCHAR(255) NOT NULL,
                         visit_date DATE NOT NULL,
                         patient_id BIGINT NOT NULL,
+                        study_id BIGINT NOT NULL,
                         CONSTRAINT pk_visits PRIMARY KEY (id),
-                        CONSTRAINT fk_visits_patient FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE
+                        CONSTRAINT fk_visits_patient FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+                        CONSTRAINT fk_visits_study FOREIGN KEY (study_id) REFERENCES studies(id) ON DELETE CASCADE
 );
 
 CREATE TABLE vital_signs (

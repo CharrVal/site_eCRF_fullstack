@@ -20,6 +20,14 @@ export class SiteService {
     return this.http.get<Site>(`${this.apiUrl}/${id}`);
   }
 
+  getByStudyId(studyId: number): Observable<Site[]> {
+    return this.http.get<Site[]>(`${this.apiUrl}/study/${studyId}`)
+  }
+
+  getBySiteId(siteId: number): Observable<Site[]> {
+    return this.http.get<Site[]>(`${this.apiUrl}/site/${siteId}`)
+  }
+
   createSite(study: Site): Observable<Site> {
     return this.http.post<Site>(this.apiUrl, study);
   }

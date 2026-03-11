@@ -1,23 +1,34 @@
-<h5>Créer une nouvelle étude</h5>
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    
+    <h4 class="mb-4 text-center">Créer une nouvelle étude</h4>
 
-<div class="container">
     <form [formGroup]="createStudyForm" (ngSubmit)="createStudy()">
-        <div class="">
-            <label class="" for="name">Nom de l'étude</label>
-            <input class="" type="text" id="name" name="name" formControlName="name">
-        </div>
 
-        <div>
-            <label class="" for="description">Description de l'étude</label>
-            <textarea class="" id="description" name="description" placeholder="Saisissez votre description" formControlName="description"></textarea>
-        </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Nom de l'étude</label>
+        <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nom de l'étude">
+      </div>
 
-        <div>
-            <label class="" for="patients">Patient associés à cette étude</label>
-            <input type="option" id="patients" name="patients" placeholder="sélectionnez les patients à associer avec cette étude" formControlName="patients"> 
-        </div>
-        <div>
-            <button class="btn btn-primay" type="submit">Créer</button>
-        </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description de l'étude</label>
+        <textarea id="description" class="form-control" rows="4" placeholder="Saisissez la description" formControlName="description">
+        </textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="patients" class="form-label">Patients associés</label>
+        <select id="patients" class="form-select" formControlName="patients">       
+          <option value="">Sélectionnez un patient</option>
+        </select>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button type="submit" class="btn btn-primary">Créer</button>
+        <button type="button" class="btn btn-outline-secondary" routerLink="/studies">Annuler</button>
+      </div>
+
     </form>
+  </div>
 </div>
+

@@ -43,8 +43,8 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientResponseDTO> findBySiteId(Long siteId) {
         siteRepository.findById(siteId)
-                .orElseThrow(() -> new PatientServiceException("Study not found with id " + siteId));
-        List<Patient> patients = repository.findByStudyId(siteId);
+                .orElseThrow(() -> new PatientServiceException("Site not found with id " + siteId));
+        List<Patient> patients = repository.findBySiteId(siteId);
 
         return patients.stream()
                 .map(patientMapper::toResponseDTO)

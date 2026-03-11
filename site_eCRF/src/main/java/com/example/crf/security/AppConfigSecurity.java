@@ -46,24 +46,29 @@ public class AppConfigSecurity {
 
                     // ACCÈS PUBLIC
                     .requestMatchers(HttpMethod.GET, "/studies/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/sites/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/visits/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/patients/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/vitalSigns/**").permitAll()
 
                     // ACCÈS ADMIN
                     .requestMatchers(HttpMethod.POST, "/studies/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/sites/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/visits/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/vitalSigns/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/patients/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/studies/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/sites/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/visits/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/vitalSigns/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/patients/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/studies/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/sites/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/visits/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/vitalSigns/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/patients/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/studies/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/sites/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/visits/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/vitalSigns/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/patients/**").hasRole("ADMIN")
@@ -90,7 +95,7 @@ public class AppConfigSecurity {
                                         "style-src 'self'; " +
                                         "img-src 'self' data:; " +
                                         "font-src 'self'; " +
-                                        "connect-src 'self' http://localhost:4000 http://localhost:8080" // en prod : connect-src 'self' https://mon-domaine.com
+                                        "connect-src 'self' http://localhost:4200 http://localhost:8080" // en prod : connect-src 'self' https://mon-domaine.com
                         )
                 )
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::deny)

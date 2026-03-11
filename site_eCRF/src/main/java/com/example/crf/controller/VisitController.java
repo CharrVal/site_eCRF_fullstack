@@ -35,6 +35,11 @@ public class VisitController {
         return ResponseEntity.ok(visitService.findByPatient(patientId));
     }
 
+    @GetMapping("/study/{studyId}")
+    public ResponseEntity<List<VisitResponseDTO>> findByStudyId(@PathVariable Long studyId) {
+        return ResponseEntity.ok(visitService.findByStudy(studyId));
+    }
+
     @PostMapping
     public ResponseEntity<VisitResponseDTO> createVisit(@Valid @RequestBody VisitRequestDTO dto) {
         return ResponseEntity.ok(visitService.createVisit(dto));

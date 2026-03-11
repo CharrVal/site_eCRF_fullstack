@@ -15,11 +15,8 @@ public class VisitMapper {
         dto.setId(visit.getId());
         dto.setName(visit.getName());
         dto.setVisitDate(visit.getVisitDate());
-
-        if (visit.getPatient() != null) {
-            dto.setPatientId(visit.getPatient().getId());
-            dto.setSubjectNumber(visit.getPatient().getSubjectNumber());
-        }
+        dto.setPatientId(visit.getPatient().getId());
+        dto.setSubjectNumber(visit.getPatient().getSubjectNumber());
 
         return dto;
     }

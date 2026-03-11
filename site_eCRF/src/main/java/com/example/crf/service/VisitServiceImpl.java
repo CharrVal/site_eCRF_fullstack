@@ -6,6 +6,7 @@ import com.example.crf.entity.Patient;
 import com.example.crf.entity.Visit;
 import com.example.crf.mapper.VisitMapper;
 import com.example.crf.repositories.PatientRepository;
+import com.example.crf.repositories.StudyRepository;
 import com.example.crf.repositories.VisitRepository;
 import com.example.crf.service.Exception.PatientServiceException;
 import com.example.crf.service.Exception.VisitServiceException;
@@ -17,14 +18,17 @@ public class VisitServiceImpl implements VisitService {
 
     private final VisitRepository repository;
     private final PatientRepository patientRepository;
+    private final StudyRepository studyRepository;
     private final VisitMapper visitMapper;
 
     public VisitServiceImpl(
             VisitRepository repository,
             PatientRepository patientRepository,
+            StudyRepository studyRepository,
             VisitMapper visitMapper) {
         this.repository = repository;
         this.patientRepository = patientRepository;
+        this.studyRepository = studyRepository;
         this.visitMapper = visitMapper;
     }
 
@@ -54,6 +58,18 @@ public class VisitServiceImpl implements VisitService {
                 .orElseThrow(() -> new PatientServiceException("Patient not found with Id:" + patientId));
 
         List<Visit> visits = repository.findByPatientId(patientId);
+
+        return visits.stream()
+                .map(visitMapper::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    public List<VisitResponseDTO> findByStudy(Long studyId) {
+        studyRepository.findById(studyId)
+                .orElseThrow(() -> new PatientServiceException("Study not found with Id:" + studyId));
+
+        List<Visit> visits = repository.findByStudyId(studyId);
 
         return visits.stream()
                 .map(visitMapper::toResponseDTO)

@@ -1,9 +1,13 @@
+import { Patient } from "../patients/patient";
+import { Study } from "../studies/study";
 import { VitalSign } from "../vitalsign/vitalSign";
 
 export interface Visit {
-    id: number;
+  id: number;
   name: string;
   visitDate: string;
-  subjectNumber?: number;
+  patientId: number;
+  subjectNumber: string;
+  study: Study;
   vitalSigns?: VitalSign[];
 }
