@@ -2,11 +2,14 @@ package com.example.crf.service;
 
 import com.example.crf.dto.SiteRequestDTO;
 import com.example.crf.dto.SiteResponseDTO;
+import com.example.crf.entity.Patient;
 import com.example.crf.entity.Site;
 import com.example.crf.entity.Study;
 import com.example.crf.mapper.SiteMapper;
+import com.example.crf.repositories.PatientRepository;
 import com.example.crf.repositories.SiteRepository;
 import com.example.crf.repositories.StudyRepository;
+import com.example.crf.service.Exception.PatientServiceException;
 import com.example.crf.service.Exception.SiteServiceException;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +20,13 @@ public class SiteServiceImpl implements SiteService {
 
     private final SiteRepository repository;
     private final StudyRepository studyRepository;
+    private final PatientRepository patientRepository;
     private final SiteMapper mapper;
 
-    public SiteServiceImpl(SiteRepository repository, StudyRepository studyRepository,SiteMapper mapper) {
+    public SiteServiceImpl(SiteRepository repository, StudyRepository studyRepository,PatientRepository patientRepository, SiteMapper mapper) {
         this.repository = repository;
         this.studyRepository = studyRepository;
+        this.patientRepository = patientRepository;
         this.mapper = mapper;
     }
 
@@ -52,13 +57,16 @@ public class SiteServiceImpl implements SiteService {
     }
 
     @Override
-    public SiteResponseDTO create(SiteRequestDTO dto) {
+    public SiteResponseDTO createSite(SiteRequestDTO dto) {
 
         Study study = studyRepository.findById(dto.getStudyId())
                 .orElseThrow(() -> new SiteServiceException("Study not found with id: " + dto.getStudyId()));
 
+        List<Patient> patients = patientRepository.findAllById(dto.getPatientIds());
+
         Site site = mapper.toEntity(dto);
         site.setStudy(study);
+        site.setPatients(patients);
 
         site = repository.save(site);
 
@@ -66,7 +74,7 @@ public class SiteServiceImpl implements SiteService {
     }
 
     @Override
-    public SiteResponseDTO update(Long id, SiteRequestDTO dto) {
+    public SiteResponseDTO updateSite(Long id, SiteRequestDTO dto) {
 
         Site site = repository.findById(id)
                 .orElseThrow(() -> new SiteServiceException("Site not found with id: " + id));
@@ -74,10 +82,13 @@ public class SiteServiceImpl implements SiteService {
         Study study = studyRepository.findById(dto.getStudyId())
                 .orElseThrow(() -> new SiteServiceException("Study not found with id: " + dto.getStudyId()));
 
+        List<Patient> patients = patientRepository.findAllById(dto.getPatientIds());
+
         site.setName(dto.getName());
         site.setStartDate(dto.getStartDate());
         site.setEndDate(dto.getEndDate());
         site.setStudy(study);
+        site.setPatients(patients);
 
         site = repository.save(site);
 

@@ -3,12 +3,16 @@ package com.example.crf.service;
 import com.example.crf.dto.VisitRequestDTO;
 import com.example.crf.dto.VisitResponseDTO;
 import com.example.crf.entity.Patient;
+import com.example.crf.entity.Study;
 import com.example.crf.entity.Visit;
+import com.example.crf.entity.VitalSign;
 import com.example.crf.mapper.VisitMapper;
 import com.example.crf.repositories.PatientRepository;
 import com.example.crf.repositories.StudyRepository;
 import com.example.crf.repositories.VisitRepository;
+import com.example.crf.repositories.VitalSignRepository;
 import com.example.crf.service.Exception.PatientServiceException;
+import com.example.crf.service.Exception.StudyServiceException;
 import com.example.crf.service.Exception.VisitServiceException;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -19,16 +23,19 @@ public class VisitServiceImpl implements VisitService {
     private final VisitRepository repository;
     private final PatientRepository patientRepository;
     private final StudyRepository studyRepository;
+    private final VitalSignRepository vitalSignRepository;
     private final VisitMapper visitMapper;
 
     public VisitServiceImpl(
             VisitRepository repository,
             PatientRepository patientRepository,
             StudyRepository studyRepository,
+            VitalSignRepository vitalSignRepository,
             VisitMapper visitMapper) {
         this.repository = repository;
         this.patientRepository = patientRepository;
         this.studyRepository = studyRepository;
+        this.vitalSignRepository = vitalSignRepository;
         this.visitMapper = visitMapper;
     }
 
@@ -83,7 +90,15 @@ public class VisitServiceImpl implements VisitService {
                 .orElseThrow(() -> new PatientServiceException(
                         "Patient not found with Id:" + dto.getPatientId()));
 
-        Visit visit = visitMapper.toEntity(dto, patient);
+        Study study = studyRepository.findById(dto.getStudyId())
+                .orElseThrow(() -> new StudyServiceException("Study not found with id : " + dto.getStudyId()));
+
+        List<VitalSign> vitalSigns = vitalSignRepository.findAllById(dto.getVitalSignIds());
+
+        Visit visit = visitMapper.toEntity(dto);
+        visit.setPatient(patient);
+        visit.setStudy(study);
+        visit.setVitalSigns(vitalSigns);
 
         visit = repository.save(visit);
 
@@ -100,9 +115,16 @@ public class VisitServiceImpl implements VisitService {
                 .orElseThrow(() -> new PatientServiceException(
                         "Patient not found with Id:" + dto.getPatientId()));
 
+        Study study = studyRepository.findById(dto.getStudyId())
+                .orElseThrow(() -> new StudyServiceException("Study not found with id : " + dto.getStudyId()));
+
+        List<VitalSign> vitalSigns = vitalSignRepository.findAllById(dto.getVitalSignIds());
+
         visit.setName(dto.getName());
         visit.setVisitDate(dto.getVisitDate());
         visit.setPatient(patient);
+        visit.setStudy(study);
+        visit.setVitalSigns(vitalSigns);
 
         visit = repository.save(visit);
 

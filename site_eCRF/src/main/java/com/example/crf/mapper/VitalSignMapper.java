@@ -16,18 +16,19 @@ public class VitalSignMapper {
         dto.setValue(vitalSign.getValue());
         dto.setUnit(vitalSign.getUnit());
         dto.setMeasuredAt(vitalSign.getMeasuredAt());
-        dto.setVisitId(vitalSign.getVisit().getId());
+        if (vitalSign.getVisit() != null) {
+            dto.setVisitId(vitalSign.getVisit().getId());
+        }
 
         return dto;
     }
 
-    public VitalSign toEntity(VitalSignRequestDTO dto, Visit visit) {
+    public VitalSign toEntity(VitalSignRequestDTO dto) {
         VitalSign vitalSign = new VitalSign();
         vitalSign.setType(dto.getType());
         vitalSign.setValue(dto.getValue());
         vitalSign.setUnit(dto.getUnit());
         vitalSign.setMeasuredAt(dto.getMeasuredAt());
-        vitalSign.setVisit(visit);
 
         return vitalSign;
     }

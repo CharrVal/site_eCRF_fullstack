@@ -18,6 +18,10 @@ public class StudyMapper {
         dto.setName(study.getName());
         dto.setDescription(study.getDescription());
 
+        if (study.getUser() != null) {
+            dto.setUserId(study.getUser().getId());
+        }
+
         if (study.getSites() != null) {
             dto.setSiteIds(
                     study.getSites()

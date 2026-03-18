@@ -15,5 +15,6 @@ public class VisitResponseDTO {
     private LocalDate visitDate;
     private Long patientId;
     private Integer subjectNumber;
+    private Long studyId;
     private List<Long> vitalSignIds;
 }

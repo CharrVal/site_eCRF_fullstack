@@ -60,7 +60,10 @@ public class VitalSignServiceImpl implements VitalSignService {
         Visit visit = visitRepository.findById(dto.getVisitId())
                 .orElseThrow(() -> new VitalSignServiceException("Visit not found with Id:" + dto.getVisitId()));
 
-        VitalSign vitalSign = vitalSignMapper.toEntity(dto, visit);
+        VitalSign vitalSign = vitalSignMapper.toEntity(dto);
+
+        vitalSign.setVisit(visit);
+
         vitalSign = repository.save(vitalSign);
 
         return vitalSignMapper.toResponseDTO(vitalSign);
@@ -80,6 +83,7 @@ public class VitalSignServiceImpl implements VitalSignService {
         vitalSign.setValue(dto.getValue());
         vitalSign.setMeasuredAt(dto.getMeasuredAt());
         vitalSign.setVisit(visit);
+
         vitalSign = repository.save(vitalSign);
 
         return vitalSignMapper.toResponseDTO(vitalSign);

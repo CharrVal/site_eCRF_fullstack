@@ -38,7 +38,7 @@ public class SiteController {
 
     @PostMapping
     public ResponseEntity<SiteResponseDTO> createSite(@Valid @RequestBody SiteRequestDTO dto) {
-        SiteResponseDTO site = siteService.create(dto);
+        SiteResponseDTO site = siteService.createSite(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(site);
     }
 
@@ -47,7 +47,7 @@ public class SiteController {
             @PathVariable Long id,
             @Valid @RequestBody SiteRequestDTO dto) {
 
-        return ResponseEntity.ok(siteService.update(id, dto));
+        return ResponseEntity.ok(siteService.updateSite(id, dto));
     }
 
     @DeleteMapping("/{id}")

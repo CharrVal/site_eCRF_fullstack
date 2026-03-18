@@ -4,9 +4,11 @@ import com.example.crf.dto.PatientRequestDTO;
 import com.example.crf.dto.PatientResponseDTO;
 import com.example.crf.entity.Patient;
 import com.example.crf.entity.Site;
+import com.example.crf.entity.Visit;
 import com.example.crf.mapper.PatientMapper;
 import com.example.crf.repositories.PatientRepository;
 import com.example.crf.repositories.SiteRepository;
+import com.example.crf.repositories.VisitRepository;
 import com.example.crf.service.Exception.PatientServiceException;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,13 @@ public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository repository;
     private final SiteRepository siteRepository;
+    private final VisitRepository visitRepository;
     private final PatientMapper patientMapper;
 
-    public PatientServiceImpl(PatientRepository repository, SiteRepository siteRepository, PatientMapper patientMapper) {
+    public PatientServiceImpl(PatientRepository repository, SiteRepository siteRepository,VisitRepository visitRepository, PatientMapper patientMapper) {
         this.repository = repository;
         this.siteRepository = siteRepository;
+        this.visitRepository = visitRepository;
         this.patientMapper = patientMapper;
     }
 
@@ -55,7 +59,13 @@ public class PatientServiceImpl implements PatientService {
     public PatientResponseDTO createPatient(PatientRequestDTO dto) {
         Site site = siteRepository.findById(dto.getSiteId())
                 .orElseThrow(() -> new PatientServiceException("Study not found with id " + dto.getSiteId()));
-        Patient patient = patientMapper.toEntity(dto, site);
+
+        List<Visit> visits = visitRepository.findAllById(dto.getVisitIds());
+
+        Patient patient = patientMapper.toEntity(dto);
+        patient.setSite(site);
+        patient.setVisits(visits);
+
         patient = repository.save(patient);
 
         return patientMapper.toResponseDTO(patient);
@@ -65,10 +75,15 @@ public class PatientServiceImpl implements PatientService {
     public PatientResponseDTO updatePatient(Long id, PatientRequestDTO dto) {
         Patient patient = repository.findById(id)
                 .orElseThrow(() -> new PatientServiceException("Patient not found with id " + id));
+
         Site site = siteRepository.findById(dto.getSiteId())
                 .orElseThrow(() -> new PatientServiceException("Study not found with id " + dto.getSiteId()));
+
+        List<Visit> visits = visitRepository.findAllById(dto.getVisitIds());
+
         patient.setSubjectNumber(dto.getSubjectNumber());
         patient.setSite(site);
+        patient.setVisits(visits);
 
         patient = repository.save(patient);
 
